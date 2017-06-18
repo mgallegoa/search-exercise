@@ -3,7 +3,9 @@ package com.manuelgallego.search;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.manuelgallego.utilities.Utilities;
+import static com.manuelgallego.utilities.Utilities.isNullEmptyList;
+import static com.manuelgallego.utilities.Utilities.isSortedList;
+import static com.manuelgallego.utilities.Utilities.binarySearchAlgorithmFirstOrLastOccurrence;
 
 /**
  * Implement a binary search algorithm.
@@ -32,18 +34,18 @@ public class BinarySearchImplement implements Search {
    */
   private boolean isValidBinarySearchDataInput(List<Integer> dataSortedInput) {
     boolean isCorrectInput = true;
-    if (Utilities.isNullList(dataSortedInput)) {
+    if (isNullEmptyList(dataSortedInput)) {
       return false;
     }
-    if (!Utilities.isSortedList(dataSortedInput)) {
-      throw new UnsupportedOperationException("This implement is for binary search in a sorted list.");
+    if (!isSortedList(dataSortedInput)) {
+      throw new UnsupportedOperationException("This implementation is for binary search, only for a sorted list.");
     }
     return isCorrectInput;
   }
 
   /**
    * Apply a binary search of a given number in a given list of integers.
-   * @param numberToFind: number to find the first or last ocurrence index.
+   * @param numberToFind: number to find the first or last occurrence index.
    * @param dataSortedInput: set of data to search.
    */
   private List<Integer> binarySearchInstanceOfNumber(int numberToFind, List<Integer> dataSortedInput) {
@@ -56,33 +58,6 @@ public class BinarySearchImplement implements Search {
       }
     }
     return instancesOfNumber;
-  }
-
-  /**
-   * Implement a binary search, return the first or the last index ocurrence of a given number in a given list of integers.
-   * @param isFirstOccurrence: indicate if search the first ocurrence of number in the input list.
-   * @param numberToFind: number to find the first or last ocurrence index.
-   * @param dataSortedInput: set of data to search.
-   */
-  private int binarySearchAlgorithmFirstOrLastOccurrence(boolean isFirstOccurrence, int numberToFind, List<Integer> dataSortedInput) {
-    int index = -1;
-    int lowIndex = 0;
-    int highIndex = dataSortedInput.size() - 1;
-    while (lowIndex <= highIndex) {
-      int middleIndex = (highIndex - lowIndex) / 2 + lowIndex;
-      if (dataSortedInput.get(middleIndex) > numberToFind) {
-        highIndex = middleIndex - 1;
-      } else if (dataSortedInput.get(middleIndex) == numberToFind) {
-        index = middleIndex;
-        if (isFirstOccurrence) {
-          highIndex = middleIndex - 1;
-        } else {
-          lowIndex = middleIndex + 1;
-        }
-      } else
-        lowIndex = middleIndex + 1;
-    }
-    return index;
   }
 
 }

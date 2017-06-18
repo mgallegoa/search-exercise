@@ -3,8 +3,76 @@ package com.manuelgallego.utilities;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Utility class for the program of search.
+ *
+ * @author Manuel Gallego
+ */
 public class Utilities {
 
+  /**
+   * Evaluate if a list is a sorted list of integer numbers.
+   * @param listSorted: list to evaluate.
+   */
+  public static boolean isSortedList(List<Integer> listSorted) {
+    boolean isSortedList = true;
+    if (Utilities.isNullEmptyList(listSorted)) {
+      return false;
+    }
+    if (listSorted.size() == 1) {
+      return isSortedList;
+    }
+    for (int i = 1; i < listSorted.size(); i++) {
+      if (listSorted.get(i) < listSorted.get(i - 1)) {
+        isSortedList = false;
+        break;
+      }
+    }
+    return isSortedList;
+  }
+
+  /**
+   * Evaluate a list if it have or not elements.
+   * @param list: list to evaluate.
+   */
+  public static boolean isNullEmptyList(List<Integer> list) {
+    boolean isNullOrEmpty = false;
+    if (list == null || list.size() == 0) {
+      isNullOrEmpty = true;
+    }
+    return isNullOrEmpty;
+  }
+
+  /**
+   * Implement a binary search, return the first or the last index occurrence of a given number in a given list of integers.
+   * @param isFirstOccurrence: indicate if search the first occurrence of number in the input list.
+   * @param numberToFind: number to find the first or last occurrence index.
+   * @param dataSortedInput: set of data to search.
+   */
+  public static int binarySearchAlgorithmFirstOrLastOccurrence(boolean isFirstOccurrence, int numberToFind, List<Integer> dataSortedInput) {
+    int index = -1;
+    int lowIndex = 0;
+    int highIndex = dataSortedInput.size() - 1;
+    while (lowIndex <= highIndex) {
+      int middleIndex = (highIndex - lowIndex) / 2 + lowIndex;
+      if (dataSortedInput.get(middleIndex) > numberToFind) {
+        highIndex = middleIndex - 1;
+      } else if (dataSortedInput.get(middleIndex) == numberToFind) {
+        index = middleIndex;
+        if (isFirstOccurrence) {
+          highIndex = middleIndex - 1;
+        } else {
+          lowIndex = middleIndex + 1;
+        }
+      } else
+        lowIndex = middleIndex + 1;
+    }
+    return index;
+  }
+
+  /**
+   * Get a default sorted list of integer numbers.
+   */
   public static List<Integer> getDefaultSortedData() {
     List<Integer> defaultSortedData = new ArrayList<Integer>();
     defaultSortedData.add(0);
@@ -24,30 +92,5 @@ public class Utilities {
     defaultSortedData.add(15);
     defaultSortedData.add(15);
     return defaultSortedData;
-  }
-
-  public static boolean isSortedList(List<Integer> listSorted) {
-    boolean isSortedList = true;
-    if (Utilities.isNullList(listSorted)) {
-      return false;
-    }
-    if (listSorted.size() == 1) {
-      return isSortedList;
-    }
-    for (int i = 1; i < listSorted.size(); i++) {
-      if (listSorted.get(i) < listSorted.get(i - 1)) {
-        isSortedList = false;
-        break;
-      }
-    }
-    return isSortedList;
-  }
-
-  public static boolean isNullList(List<Integer> list) {
-    boolean isNullOrEmpty = false;
-    if (list == null || list.size() == 0) {
-      isNullOrEmpty = true;
-    }
-    return isNullOrEmpty;
   }
 }

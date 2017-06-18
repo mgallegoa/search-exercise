@@ -1,8 +1,6 @@
 package com.manuelgallego.search;
 
-import static org.junit.Assert.fail;
-
-import com.manuelgallego.utilities.Utilities;
+import static com.manuelgallego.search.Mocks.getDefaultSortedData;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Test a binary searchi in a sorted list.
+ * Test a binary search in a sorted list.
  *
  * @author Manuel Gallego
  */
@@ -20,7 +18,7 @@ public class BinarySearchTest {
 
   @Before
   public void before() {
-    defaultSortedDataInput = Utilities.getDefaultSortedData();
+    defaultSortedDataInput = getDefaultSortedData();
   }
 
   @Test
