@@ -5,7 +5,7 @@ import java.util.List;
 
 import static com.manuelgallego.utilities.Utilities.isNullEmptyList;
 import static com.manuelgallego.utilities.Utilities.isSortedList;
-import static com.manuelgallego.utilities.Utilities.binarySearchAlgorithmFirstOrLastOccurrence;
+import static com.manuelgallego.utilities.Utilities.binarySearchAlgorithmOlogN;
 
 /**
  * Implement a binary search algorithm.
@@ -50,12 +50,31 @@ public class BinarySearchImplement implements Search {
    */
   private List<Integer> binarySearchInstanceOfNumber(int numberToFind, List<Integer> dataSortedInput) {
     List<Integer> instancesOfNumber = new ArrayList<Integer>();
-    int initialOccurence = binarySearchAlgorithmFirstOrLastOccurrence(true, numberToFind, dataSortedInput);
-    int finalOccurence = binarySearchAlgorithmFirstOrLastOccurrence(false, numberToFind, dataSortedInput);
-    if (initialOccurence != -1 && finalOccurence != -1) {
-      for (int i = initialOccurence; i <= finalOccurence; i++) {
-        instancesOfNumber.add(i);
-      }
+    int indexOccurence = binarySearchAlgorithmOlogN(numberToFind, dataSortedInput);
+    if (indexOccurence != -1) {
+      instancesOfNumber = getAllIndexOfNumberFound(numberToFind, dataSortedInput, indexOccurence);
+    }
+    return instancesOfNumber;
+  }
+
+  /**
+   * Get all index, befor and after the index where the number was found.
+   * @param numberToFind: number to find the first or last occurrence index.
+   * @param dataSortedInput: set of data to search.
+   * @param indexOccurence: Index where the number was found.
+   */
+  private List<Integer> getAllIndexOfNumberFound(int numberToFind, List<Integer> dataSortedInput, int indexOccurence) {
+    List<Integer> instancesOfNumber = new ArrayList<Integer>();
+    instancesOfNumber.add(indexOccurence);
+    int beforeOccurence = indexOccurence - 1;
+    while (indexOccurence > 0 && numberToFind == dataSortedInput.get(beforeOccurence)) {
+      instancesOfNumber.add(beforeOccurence);
+      beforeOccurence = beforeOccurence - 1;
+    }
+    int afterOccurence = indexOccurence + 1;
+    while (afterOccurence <= dataSortedInput.size() && numberToFind == dataSortedInput.get(afterOccurence)) {
+      instancesOfNumber.add(afterOccurence);
+      afterOccurence = afterOccurence + 1;
     }
     return instancesOfNumber;
   }

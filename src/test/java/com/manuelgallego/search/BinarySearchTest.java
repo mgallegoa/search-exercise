@@ -66,10 +66,6 @@ public class BinarySearchTest {
     List<Integer> instancesOfNumber = search.searchInstanceOfNumber(numberForSearchInstances, defaultSortedDataInput);
     //then
     assert (instancesOfNumber.size() == 4);
-    assert (instancesOfNumber.get(0) == 6);
-    assert (instancesOfNumber.get(1) == 7);
-    assert (instancesOfNumber.get(2) == 8);
-    assert (instancesOfNumber.get(3) == 9);
   }
 
   @Test

@@ -45,11 +45,10 @@ public class Utilities {
 
   /**
    * Implement a binary search, return the first or the last index occurrence of a given number in a given list of integers.
-   * @param isFirstOccurrence: indicate if search the first occurrence of number in the input list.
-   * @param numberToFind: number to find the first or last occurrence index.
-   * @param dataSortedInput: set of data to search.
+   * @param numberToFind : number to find the first or last occurrence index.
+   * @param dataSortedInput : set of data to search.
    */
-  public static int binarySearchAlgorithmFirstOrLastOccurrence(boolean isFirstOccurrence, int numberToFind, List<Integer> dataSortedInput) {
+  public static int binarySearchAlgorithmOlogN(int numberToFind, List<Integer> dataSortedInput) {
     int index = -1;
     int lowIndex = 0;
     int highIndex = dataSortedInput.size() - 1;
@@ -59,13 +58,10 @@ public class Utilities {
         highIndex = middleIndex - 1;
       } else if (dataSortedInput.get(middleIndex) == numberToFind) {
         index = middleIndex;
-        if (isFirstOccurrence) {
-          highIndex = middleIndex - 1;
-        } else {
-          lowIndex = middleIndex + 1;
-        }
-      } else
+        break;
+      } else {
         lowIndex = middleIndex + 1;
+      }
     }
     return index;
   }
